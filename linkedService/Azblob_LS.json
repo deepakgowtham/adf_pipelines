@@ -1,0 +1,13 @@
+{
+	"name": "Azblob_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked service for azstudentblob linked service",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=azstudentblob;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEQ3QzE3QThELTdCRTItNDU1Ny05NEY0LTc3MzUwOEFCOTczQ19kZjY3ZWVjYi04MGY5LTQwN2ItYTEyZS1mYTRlY2FmN2VhYjEiDQp9"
+		}
+	}
+}

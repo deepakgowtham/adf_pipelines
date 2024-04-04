@@ -1,0 +1,17 @@
+{
+	"name": "SQLserver_onprem_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked service for Deepak Hp SQL Server",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=DEEPAK-HP\\SQLDE;initial catalog=AdventureWorks2014;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxZjE0OTBiOS0yOWI3LTQyOTktOTRlNy1jYzI5ZmQ5NjZmMDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Deepak-HP-Runtime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

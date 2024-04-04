@@ -1,0 +1,21 @@
+{
+	"name": "Person_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "azdatalake_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sql_server",
+				"fileSystem": "landing"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

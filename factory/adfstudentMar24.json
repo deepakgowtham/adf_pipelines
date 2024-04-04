@@ -1,0 +1,9 @@
+{
+	"name": "adfstudentMar24",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e9a23741-365b-4c6b-882f-00ddceb858c3",
+		"tenantId": "6b8b8296-bdff-4ad8-93ad-84bcbf3842f5"
+	}
+}

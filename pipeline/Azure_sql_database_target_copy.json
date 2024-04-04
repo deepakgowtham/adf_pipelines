@@ -1,0 +1,109 @@
+{
+	"name": "Azure_sql_database_target_copy",
+	"properties": {
+		"description": "Copy from blob to azure sql database",
+		"activities": [
+			{
+				"name": "Blob_to_azure_Sql_Database",
+				"description": "Blob_to_azure_Sql_Database",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"id"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "dept_no",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "dept_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Parameterized",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "input",
+							"folder": "subfolder",
+							"file": "departments.csv"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Parameterized_az_sql",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "dbo",
+							"table_name": "department"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-04-01T14:24:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

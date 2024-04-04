@@ -1,0 +1,96 @@
+{
+	"name": "Copy_with_chaning_columns",
+	"properties": {
+		"description": "Copy_with_chaning_columns",
+		"activities": [
+			{
+				"name": "Copy with changing columns",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "dept_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dept_name",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "departments",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "department_csv_staging",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"Copy_Date": {
+				"type": "String",
+				"defaultValue": "NA"
+			},
+			"Copy_string": {
+				"type": "String",
+				"defaultValue": "NA"
+			}
+		},
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-03-27T02:57:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
