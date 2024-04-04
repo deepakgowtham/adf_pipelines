@@ -1,0 +1,10 @@
+{
+	"name": "Test_pipeline",
+	"properties": {
+		"description": "Test_pipeline",
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": []
+	}
+}
