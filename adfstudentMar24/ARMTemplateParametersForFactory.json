@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfstudentMar24"
+		},
+		"Azblob_LS_connectionString": {
+			"value": ""
+		},
+		"LS_adfsql2_connectionString": {
+			"value": ""
+		},
+		"SQLserver_onprem_LS_connectionString": {
+			"value": ""
+		},
+		"azdatalake_LS_accountKey": {
+			"value": ""
+		},
+		"azdatalake_LS_properties_typeProperties_url": {
+			"value": "https://azgen2studmar24.dfs.core.windows.net/"
+		}
+	}
+}
