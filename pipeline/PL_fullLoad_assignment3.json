@@ -57,7 +57,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_datalake_parameterized_csv",
+						"referenceName": "DS_datalake_parametrized_foldercsv",
 						"type": "DatasetReference"
 					}
 				]
