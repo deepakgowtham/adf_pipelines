@@ -58,7 +58,11 @@
 				"outputs": [
 					{
 						"referenceName": "DS_datalake_parametrized_foldercsv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "landing",
+							"folder": "full_load_assign3"
+						}
 					}
 				]
 			}
