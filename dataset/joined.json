@@ -1,5 +1,5 @@
 {
-	"name": "blob_input",
+	"name": "joined",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Azblob_LS",
@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sql_loop_metadata.csv",
-				"container": "input"
+				"folderPath": "subfolder",
+				"container": "staging"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

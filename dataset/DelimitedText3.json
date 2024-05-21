@@ -1,5 +1,5 @@
 {
-	"name": "blob_input",
+	"name": "DelimitedText3",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Azblob_LS",
@@ -10,15 +10,20 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sql_loop_metadata.csv",
+				"fileName": "loop_metadata.csv",
 				"container": "input"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "\t",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "Inputcontainer\tInputdirectory\tInputfile\tOutputcontainer\tOutputdirectory\tOutputfile",
+				"type": "String"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

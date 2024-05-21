@@ -1,5 +1,5 @@
 {
-	"name": "blob_input",
+	"name": "DelimitedText4",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Azblob_LS",
@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sql_loop_metadata.csv",
-				"container": "input"
+				"container": "staging"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

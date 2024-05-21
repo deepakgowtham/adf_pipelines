@@ -1,0 +1,183 @@
+{
+	"name": "Loop_copy",
+	"properties": {
+		"description": "Copy using loop activity",
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup1').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_Parameterized",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@item().Inputcontainer",
+											"type": "Expression"
+										},
+										"folder": {
+											"value": "@item().Inputdirectory",
+											"type": "Expression"
+										},
+										"file": {
+											"value": "@item().Inputfile",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_Parameterized",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@item().Outputcontainer",
+											"type": "Expression"
+										},
+										"folder": {
+											"value": "@item().Outputdirectory",
+											"type": "Expression"
+										},
+										"file": {
+											"value": "@item().Outputfile",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"variables": {
+			"metadata": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"Inputfile": "departments.csv",
+						"Inputcontainer": "input",
+						"Inputdirectory": "subfolder",
+						"Outputfile": "departments.csv",
+						"Outputcontainer": "staging",
+						"Outputdirectory": "subfolder"
+					},
+					{
+						"Inputfile": "department2.csv",
+						"Inputcontainer": "input",
+						"Inputdirectory": "sub_landing",
+						"Outputfile": "department2.csv",
+						"Outputcontainer": "staging",
+						"Outputdirectory": "sub_landing"
+					},
+					{
+						"Inputfile": "test.txt",
+						"Inputcontainer": "input",
+						"Inputdirectory": "sub_landing2",
+						"Outputfile": "test.txt",
+						"Outputcontainer": "staging",
+						"Outputdirectory": "sub_landing2"
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-04-05T15:31:26Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

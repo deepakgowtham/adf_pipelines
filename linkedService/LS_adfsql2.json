@@ -6,8 +6,15 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=adfsql2.database.windows.net;initial catalog=targetdbadf;user id=deepaksa",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEQ3QzE3QThELTdCRTItNDU1Ny05NEY0LTc3MzUwOEFCOTczQ19mY2JhYWFlMi02ZGMxLTQ2YjctODI3Yy1mNmM3YjdkMGVkY2IiDQp9"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsrvde.database.windows.net;Initial Catalog=dedb;User ID=deepaksa",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "Vaultde_LInked service",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "deepaksa"
+			}
 		}
 	}
 }

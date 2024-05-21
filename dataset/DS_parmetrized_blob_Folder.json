@@ -1,17 +1,31 @@
 {
-	"name": "blob_input",
+	"name": "DS_parmetrized_blob_Folder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Azblob_LS",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"folder": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sql_loop_metadata.csv",
-				"container": "input"
+				"folderPath": {
+					"value": "@dataset().folder",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

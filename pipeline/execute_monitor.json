@@ -1,0 +1,63 @@
+{
+	"name": "execute_monitor",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute_getmetadata_pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "GetMetadata_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "send_email_alert",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_getmetadata_pipeline",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Email_alert_web_app",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Subject": "Pipeline Status Notification",
+						"Message": {
+							"value": "Pipeline  Starttime : @{pipeline().TriggerTime}\nBatch End Time :@{utcNow()}",
+							"type": "Expression"
+						},
+						"PipelineName": {
+							"value": "@pipeline().Pipeline",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-05-15T09:57:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

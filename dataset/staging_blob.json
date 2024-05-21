@@ -1,17 +1,25 @@
 {
-	"name": "blob_input",
+	"name": "staging_blob",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Azblob_LS",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"folder": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "sql_loop_metadata.csv",
-				"container": "input"
+				"folderPath": "listoffiles",
+				"container": "staging"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

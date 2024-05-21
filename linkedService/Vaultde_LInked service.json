@@ -1,0 +1,12 @@
+{
+	"name": "Vaultde_LInked service",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked service for azure key vault vault de",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://valutde.vault.azure.net/"
+		}
+	}
+}

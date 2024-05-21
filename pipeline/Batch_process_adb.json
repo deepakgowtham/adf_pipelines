@@ -1,0 +1,165 @@
+{
+	"name": "Batch_process_adb",
+	"properties": {
+		"activities": [
+			{
+				"name": "csv_processing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/csv_processing"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "JSON_processing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "csv_processing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/JSON_processing"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Xml_processing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "csv_processing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/xml_processing"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "department_processing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "JSON_processing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/process_department"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Movefile",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "department_processing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/moveFile"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "dashboard",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Movefile",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/batch_process_poc/dashboard"
+				},
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-05-17T14:58:22Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,181 @@
+{
+	"name": "push_metadata_to_Sql",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Inputcontainer",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Inputcontainer",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Inputdirectory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Inputdirectory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Inputfile",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Inputfile",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Outputcontainer",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Outputcontainer",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Outputdirectory",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Outputdirectory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Outputfile",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Outputfile",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "schema",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "schema",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "tablename",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "tablename",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "flag",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "flag",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "blob_input",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Parameterized_az_sql",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": "dbo",
+							"table_name": "metadata"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Copy_Data"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-04-11T14:51:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
