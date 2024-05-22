@@ -13,7 +13,8 @@
 		},
 		"LS_adfsql2_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_adfsql2'"
+			"metadata": "Secure string for 'connectionString' of 'LS_adfsql2'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsrvde.database.windows.net;Initial Catalog=dedb;User ID=deepaksa"
 		},
 		"SQLserver_onprem_LS_connectionString": {
 			"type": "secureString",
@@ -23,9 +24,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'azdatalake_LS'"
 		},
+		"LS_Datalake_abhishek_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://rgstorageellipse.dfs.core.windows.net/"
+		},
+		"Vaultde_LInked service_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://valutde.vault.azure.net/"
+		},
 		"azdatalake_LS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://azgen2studmar24.dfs.core.windows.net/"
+		},
+		"azuredatabricksde_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0517-121641-d6fsrzxf"
 		},
 		"containerUri": {
 			"type": "string",
@@ -57,14 +70,11 @@
 					"Azblob_LS_connectionString": {
 						"value": "[parameters('Azblob_LS_connectionString')]"
 					},
-					"LS_adfsql2_connectionString": {
-						"value": "[parameters('LS_adfsql2_connectionString')]"
-					},
 					"azdatalake_LS_accountKey": {
 						"value": "[parameters('azdatalake_LS_accountKey')]"
 					},
-					"SQLserver_onprem_LS_connectionString": {
-						"value": "[parameters('SQLserver_onprem_LS_connectionString')]"
+					"Vaultde_LInked service_properties_typeProperties_baseUrl": {
+						"value": "[parameters('Vaultde_LInked service_properties_typeProperties_baseUrl')]"
 					},
 					"azdatalake_LS_properties_typeProperties_url": {
 						"value": "[parameters('azdatalake_LS_properties_typeProperties_url')]"
@@ -86,11 +96,43 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_adfsql2_connectionString": {
+						"value": "[parameters('LS_adfsql2_connectionString')]"
+					},
+					"SQLserver_onprem_LS_connectionString": {
+						"value": "[parameters('SQLserver_onprem_LS_connectionString')]"
+					},
+					"LS_Datalake_abhishek_properties_typeProperties_url": {
+						"value": "[parameters('LS_Datalake_abhishek_properties_typeProperties_url')]"
+					},
+					"azuredatabricksde_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('azuredatabricksde_properties_typeProperties_existingClusterId')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'adfstudentMar24_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adfstudentMar24_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adfstudentMar24_ArmTemplate_1')]"
 			]
 		}
 	]

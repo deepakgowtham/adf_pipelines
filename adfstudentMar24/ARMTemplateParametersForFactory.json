@@ -9,7 +9,7 @@
 			"value": ""
 		},
 		"LS_adfsql2_connectionString": {
-			"value": ""
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsrvde.database.windows.net;Initial Catalog=dedb;User ID=deepaksa"
 		},
 		"SQLserver_onprem_LS_connectionString": {
 			"value": ""
@@ -17,8 +17,17 @@
 		"azdatalake_LS_accountKey": {
 			"value": ""
 		},
+		"LS_Datalake_abhishek_properties_typeProperties_url": {
+			"value": "https://rgstorageellipse.dfs.core.windows.net/"
+		},
+		"Vaultde_LInked service_properties_typeProperties_baseUrl": {
+			"value": "https://valutde.vault.azure.net/"
+		},
 		"azdatalake_LS_properties_typeProperties_url": {
 			"value": "https://azgen2studmar24.dfs.core.windows.net/"
+		},
+		"azuredatabricksde_properties_typeProperties_existingClusterId": {
+			"value": "0517-121641-d6fsrzxf"
 		}
 	}
 }
