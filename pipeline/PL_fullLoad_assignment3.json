@@ -120,7 +120,11 @@
 				"outputs": [
 					{
 						"referenceName": "DS_param_datalake_folder_parquet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "landing",
+							"folder": "veldata"
+						}
 					}
 				]
 			}
