@@ -67,7 +67,7 @@
 				]
 			},
 			{
-				"name": "Copy data1",
+				"name": "Copy_parquet_to_datalake",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -127,6 +127,25 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Convert_parquet_to_csv",
+				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "azuredatabricksde",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
