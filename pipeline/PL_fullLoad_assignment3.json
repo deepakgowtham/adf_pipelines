@@ -131,9 +131,14 @@
 			{
 				"name": "Convert_parquet_to_csv",
 				"type": "DatabricksNotebook",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy_parquet_to_datalake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -142,6 +147,9 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/mithrann.23me@kct.ac.in/assign_3/Parquet_to_csv"
+				},
 				"linkedServiceName": {
 					"referenceName": "azuredatabricksde",
 					"type": "LinkedServiceReference"
