@@ -2263,6 +2263,120 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_Parameterized_az_sql')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_full_load_as3_monitor')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Execute Pipeline1",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PL_fullLoad_assignment3",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Execute email alert pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Execute Pipeline1",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Email_alert_web_app",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"Subject": "Pipeline Failed Notification",
+								"Message": {
+									"value": "Pipeline  Starttime : @{pipeline().TriggerTime}\nBatch End Time :@{utcNow()}",
+									"type": "Expression"
+								},
+								"PipelineName": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Store pipeline status",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Execute Pipeline1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[pipeline_status]",
+							"storedProcedureParameters": {
+								"pipeline_name": {
+									"value": "PL_fullLoad_assignment3",
+									"type": "String"
+								},
+								"pipeline_status": {
+									"value": {
+										"value": "@activity('Execute Pipeline1').Status",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"execution_time": {
+									"value": {
+										"value": "@activity('Execute Pipeline1').ExecutionEndTime",
+										"type": "Expression"
+									},
+									"type": "Datetime"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_adfsql2",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_fullLoad_assignment3')]"
+			]
 		}
 	]
 }
